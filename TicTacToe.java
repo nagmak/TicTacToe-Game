@@ -9,7 +9,7 @@ public class TicTacToe{
 	private static int user = 1;
 	private static Random r = new Random();
 	private static Scanner key = new Scanner(System.in);
-	private static final String name2 = "Computer";
+	private static final String NAME2 = "Computer";
 	private static final int ROWS = 3, COLS = 3, FULL = 9;
 
 	public static void main(String[] args){
@@ -31,11 +31,11 @@ public class TicTacToe{
 		
 		// Determines the Computer's character
 		if (name1_char == 'X' || name1_char == 'x'){
-			System.out.println(name2 + "'s character is now " + 'O');
+			System.out.println(NAME2 + "'s character is now " + 'O');
 			name2_char = 'O';
 		}
 		else if (name1_char == 'o' || name1_char == 'O'){
-			System.out.println(name2 + "'s character is now " + 'X');
+			System.out.println(NAME2 + "'s character is now " + 'X');
 			name2_char = 'X';
 		}
 
@@ -54,9 +54,9 @@ public class TicTacToe{
 				user = 2;
 			}
 			else if (user == 2){
-				System.out.println("\n" + name2 + "'s turn.");
+				System.out.println("\n" + NAME2 + "'s turn.");
 				computer_choice(name2_char);
-				System.out.print("\n" + name2 + " has made its move.");
+				System.out.print("\n" + NAME2 + " has made its move.");
 				display_board();
 				user = 1;
 			}
@@ -68,7 +68,7 @@ public class TicTacToe{
 				break;
 			}
 			if (detect_wintie(name2_char)){
-				System.out.println(name2 + " WINS.");
+				System.out.println(NAME2 + " WINS.");
 				user = 0;
 				break;
 			}
