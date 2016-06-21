@@ -119,13 +119,15 @@ public class TicTacToe{
 
 	// Updates board with computer selection
 	public static void computer_choice(char name2_char){
-		for (int row = 0; row < ROWS; row++){
-			for (int col = 0; col < COLS; col++){
-				if (board[row][col] == ' '){
-					board[row][col] = name2_char;
-					return;
-				}
-			}
+		int row = r.nextInt(ROWS);
+		int col = r.nextInt(COLS);
+		while(board[row][col] != ' '){
+			row = r.nextInt(ROWS);
+			col = r.nextInt(COLS);
+		}
+
+		if (board[row][col] == ' '){
+			board[row][col] = name2_char;
 		}
 	}
 
