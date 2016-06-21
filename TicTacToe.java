@@ -10,6 +10,7 @@ public class TicTacToe{
 	private static Random r = new Random();
 	private static Scanner key = new Scanner(System.in);
 	private static final String name2 = "Computer";
+	private static final int ROWS = 3, COLS = 3;
 
 	public static void main(String[] args){
 		init_board(); // initializes + displays empty board
@@ -42,11 +43,11 @@ public class TicTacToe{
 				System.out.println(name1 + ", it's your turn.");
 				System.out.print("Where do you want to put it? [row (0 - 2)]: ");
 				int row = key.nextInt();
-				row = row_col_choice(row); // row selection
+				row = row_col_choice(row); // row error check
 
 				System.out.print("[col (0 - 2)]: ");
 				int col = key.nextInt();
-				col = row_col_choice(col); // col selection
+				col = row_col_choice(col); // col error check
 				update_board(name1_char, name2_char, row, col);
 			}
 			else if (user == 2){
@@ -55,8 +56,8 @@ public class TicTacToe{
 				int col = computer_choice();
 
 				while (board[row][col] != ' '){
-					row = computer_choice();
-					col = computer_choice();
+					row = r.nextInt(2);
+					col = r.nextInt(2);
 				}
 
 				System.out.print("\n" + name2 + " selected row: " + row);
@@ -93,8 +94,8 @@ public class TicTacToe{
 
 	// Initial board with blank characters
 	public static void init_board(){
-		for(int row = 0; row < 3; row++){
-			for (int col = 0; col < 3; col++){
+		for(int row = 0; row < ROWS; row++){
+			for (int col = 0; col < COLS; col++){
 				board[row][col] = ' ';
 			}
 		}
@@ -130,28 +131,22 @@ public class TicTacToe{
 	public static boolean detect_wintie(char select){
 
 		// Checks for 3 in a row/col/diagonal
-		if (board[0][0] == select && board[0][1] == select && board[0][2] == select){
+		for (int row = 0; row < ROWS; row++){
+			if (board[row][0] == select && board[row][1] == select && board[row][2] == select){
+				return true;
+			}
+		}
+
+		for (int col = 0; col < COLS; col++){
+			if (board[0][col] == select && board[1][col] == select && board[2][col] == select){
+				return true;
+			}
+		}
+		
+		if (board[0][0] == select && board[1][1] == select && board[2][2] == select){
 			return true;
 		}
-		else if (board[1][0] == select && board[1][1] == select && board[1][2] == select){
-			return true;
-		}
-		else if (board[2][0] == select && board[2][1] == select && board[2][2] == select){
-			return true;
-		}
-		else if (board[0][0] == select && board[1][0] == select && board[2][0] == select){
-			return true;
-		}
-		else if (board[0][1] == select && board[1][1] == select && board[2][1] == select){
-			return true;
-		}
-		else if (board[0][2] == select && board[1][2] == select && board[2][2] == select){
-			return true;
-		}
-		else if (board[0][0] == select && board[1][1] == select && board[2][2] == select){
-			return true;
-		}
-		else if (board[2][0] == select && board[1][1] == select && board[0][2] == select){
+		if (board[2][0] == select && board[1][1] == select && board[0][2] == select){
 			return true;
 		}
 		return false; // game continues
@@ -159,23 +154,36 @@ public class TicTacToe{
 
 	// Calculates scores to detect a tie
 	public static boolean calculate_tie(){
-		int scoreX = 0;
-		int scoreO = 0;
-		for (int i = 0; i < 3; i++){
-			for (int j = 0; j < 3; j++){
-				if (board[i][j] == 'X' || board[i][j] == 'x'){
-					scoreX++;
-				}
-				if (board[i][j] == 'O' || board[i][j] == 'o'){
-					scoreO++;
+		// int scoreX = 0;
+		// int scoreO = 0;
+		// for (int i = 0; i < ROWS; i++){
+		// 	for (int j = 0; j < COLS; j++){
+		// 		if (board[i][j] == 'X' || board[i][j] == 'x'){
+		// 			scoreX++;
+		// 		}
+		// 		if (board[i][j] == 'O' || board[i][j] == 'o'){
+		// 			scoreO++;
+		// 		}
+		// 	}
+		// }
+
+		// if ((scoreO == 4 && scoreX == 5) || (scoreO == 5 && scoreX == 4)){ // calculates tie based on score
+		// 		System.out.println("It's a tie!");
+		// 		return true;
+		// }
+		int score = 0;
+		for (int i = 0; i < ROWS; i++){
+			for (int j = 0; j < COLS; j++){
+				if (board[i][j] != ' '){
+					score++;
 				}
 			}
 		}
 
-		if ((scoreO == 4 && scoreX == 5) || (scoreO == 5 && scoreX == 4)){ // calculates tie based on score
-				System.out.println("It's a tie!");
-				return true;
+		if(score == 9){
+			return true;
 		}
+
 		return false;
 	}
 	
