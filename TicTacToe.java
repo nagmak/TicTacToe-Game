@@ -103,6 +103,14 @@ public class TicTacToe{
 
 	// Updates board with human player selection
 	public static void update_board(char name1_char, int row, int col){
+		while(board[row][col] != ' '){
+			System.out.println("Oops. That spot has been taken.");
+			System.out.print("Select a row[0 - 2]: ");
+			row = key.nextInt();
+			System.out.print("Select a col[0 - 2]: ");
+			col = key.nextInt();
+		}
+
 		if (board[row][col] == ' '){
 			board[row][col] = name1_char;
 		}
