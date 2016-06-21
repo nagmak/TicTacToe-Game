@@ -51,12 +51,14 @@ public class TicTacToe{
 				int col = key.nextInt();
 				col = row_col_choice(col); // col error check
 				update_board(name1_char, row, col);
+				user = 2;
 			}
 			else if (user == 2){
 				System.out.println("\n" + name2 + "'s turn.");
 				computer_choice(name2_char);
 				System.out.print("\n" + name2 + " has made its move.");
 				display_board();
+				user = 1;
 			}
 
 			// Checks for Win/Tie
@@ -75,15 +77,6 @@ public class TicTacToe{
 				user = 0;
 				break;
 			}
-			else{ // creates turns to continue the game
-				if (user == 1){
-					user = 2;
-				}
-				else if (user == 2){
-					user = 1;
-				}
-			}
-			
 		}
 	}
 
