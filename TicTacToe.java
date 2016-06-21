@@ -1,5 +1,5 @@
 // Tic Tac Toe game
-// A program that lets two humans play a game of Tic Tac Toe
+// A program that lets 1 human play versus the computer
 
 import java.util.*;
 import java.util.Scanner;
@@ -17,10 +17,7 @@ public class TicTacToe{
 		Scanner key = new Scanner(System.in);
 		System.out.print("User 1, Enter your Name: ");
 		String name1 = key.nextLine();
-		// System.out.print("User 2, Enter your Name: ");
-		// String name2 = key.nextLine();
 		String name2 = "Computer";
-
 		System.out.println(name1 + ", please select your character[X] or [O]: ");
 		char name1_char = key.next().charAt(0);
 		char name2_char = '\0';
@@ -29,13 +26,13 @@ public class TicTacToe{
 				name1_char = key.next().charAt(0);
 		}
 		
-		// Determines the second user's character
+		// Determines the Computer's character
 		if (name1_char == 'X' || name1_char == 'x'){
-			System.out.println(name2 + ", your character is now " + 'O');
+			System.out.println(name2 + "'s character is now " + 'O');
 			name2_char = 'O';
 		}
 		else if (name1_char == 'o' || name1_char == 'O'){
-			System.out.println(name2 + ", your character is now " + 'X');
+			System.out.println(name2 + "'s character is now " + 'X');
 			name2_char = 'X';
 		}
 
@@ -45,36 +42,22 @@ public class TicTacToe{
 				System.out.println(name1 + ", it's your turn.");
 				System.out.print("Where do you want to put it? [row (0 - 2)]: ");
 				int row = key.nextInt();
-				row_col_choice(row);
-				// while(row < 0 || row > 2){
-				// 	System.out.print("Incorrect input. Please enter a row between 0 and 2: ");
-				// 	row = key.nextInt();
-				// }
+				row_col_choice(row); // row selection
 
 				System.out.print("[col (0 - 2)]: ");
 				int col = key.nextInt();
-				row_col_choice(col);
-				while(col < 0 || col > 2){
-					System.out.print("Incorrect input. Please enter a col between 0 and 2: ");
-					col = key.nextInt();
-				}
+				row_col_choice(col); // col selection
 				update_board(name1_char, name2_char, row, col);
 			}
 			else if (user == 2){
-				System.out.println(name2 + ", it's your turn.");
-				System.out.print("Where do you want to put it? [row (0 - 2)]: ");
+				System.out.println(name2 + "'s turn.");
+				System.out.print("Row selected [row (0 - 2)]: ");
 				int row = computer_choice();
-				while(row < 0 || row > 2){
-					System.out.print("Incorrect input. Please enter a row between 0 and 2: ");
-					row = computer_choice();
-				}
+				row_col_choice(row);
 
-				System.out.print("[col (0 - 2)]: ");
+				System.out.print("Column selected [col (0 - 2)]: ");
 				int col = computer_choice();
-				while(col < 0 || col > 2){
-					System.out.print("Incorrect input. Please enter a col between 0 and 2: ");
-					col = computer_choice();
-				}
+				row_col_choice(col);
 				update_board(name1_char, name2_char, row, col);
 			}
 
