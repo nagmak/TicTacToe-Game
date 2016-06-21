@@ -43,14 +43,14 @@ public class TicTacToe{
 		while(user != 0){
 			if (user == 1){
 				System.out.println(name1 + ", it's your turn.");
-				System.out.print("Where do you want to put it? [row (0 - 2)]: ");
-				int row = key.nextInt();
-				row = row_col_choice(row); // row error check
-
-				System.out.print("[col (0 - 2)]: ");
+				System.out.print("Where do you want to put it? [col (0 - 2)]: ");
 				int col = key.nextInt();
 				col = row_col_choice(col); // col error check
-				update_board(name1_char, row, col);
+
+				System.out.print("[row (0 - 2)]: ");
+				int row = key.nextInt();
+				row = row_col_choice(row); // row error check
+				update_board(name1_char, col, row);
 				user = 2;
 			}
 			else if (user == 2){
@@ -82,9 +82,9 @@ public class TicTacToe{
 
 	// Initial board with blank characters
 	public static void init_board(){
-		for(int row = 0; row < ROWS; row++){
-			for (int col = 0; col < COLS; col++){
-				board[row][col] = ' ';
+		for(int col = 0; col < COLS; col++){
+			for (int row = 0; row < ROWS; row++){
+				board[col][row] = ' ';
 			}
 		}
 		System.out.println("Welcome to a game of Tic Tac Toe. I hope you're ready.");
@@ -102,47 +102,47 @@ public class TicTacToe{
 	}
 
 	// Updates board with human player selection
-	public static void update_board(char name1_char, int row, int col){
-		while(board[row][col] != ' '){
+	public static void update_board(char name1_char, int col, int row){
+		while(board[col][row] != ' '){
 			System.out.println("Oops. That spot has been taken.");
-			System.out.print("Select a row[0 - 2]: ");
-			row = key.nextInt();
 			System.out.print("Select a col[0 - 2]: ");
 			col = key.nextInt();
+			System.out.print("Select a row[0 - 2]: ");
+			row = key.nextInt();
 		}
 
-		if (board[row][col] == ' '){
-			board[row][col] = name1_char;
+		if (board[col][row] == ' '){
+			board[col][row] = name1_char;
 		}
 		display_board(); // display
 	}
 
 	// Updates board with computer selection
 	public static void computer_choice(char name2_char){
-		int row = r.nextInt(ROWS);
 		int col = r.nextInt(COLS);
+		int row = r.nextInt(ROWS);
 		while(board[row][col] != ' '){
-			row = r.nextInt(ROWS);
 			col = r.nextInt(COLS);
+			row = r.nextInt(ROWS);
 		}
 
-		if (board[row][col] == ' '){
-			board[row][col] = name2_char;
+		if (board[col][row] == ' '){
+			board[col][row] = name2_char;
 		}
 	}
 
 	// Winner or Tie detection
 	public static boolean detect_wintie(char select){
 
-		// Checks for 3 in a row
-		for (int row = 0; row < ROWS; row++){
-			if (board[row][0] == select && board[row][1] == select && board[row][2] == select){
+		// Checks for 3 in a col
+		for (int col = 0; col < COLS; col++){
+			if (board[col][0] == select && board[col][1] == select && board[col][2] == select){
 				return true;
 			}
 		}
-		// Checks for 3 in a col
-		for (int col = 0; col < COLS; col++){
-			if (board[0][col] == select && board[1][col] == select && board[2][col] == select){
+		// Checks for 3 in a row
+		for (int row = 0; row < COLS; row++){
+			if (board[0][row] == select && board[1][row] == select && board[2][row] == select){
 				return true;
 			}
 		}
@@ -159,9 +159,9 @@ public class TicTacToe{
 	// Decides if there is a tie
 	public static boolean calculate_tie(){
 		int score = 0;
-		for (int i = 0; i < ROWS; i++){
-			for (int j = 0; j < COLS; j++){
-				if (board[i][j] != ' '){
+		for (int col = 0; col < COLS; col++){
+			for (int row = 0; row < ROWS; row++){
+				if (board[col][row] != ' '){
 					score++;
 				}
 			}
