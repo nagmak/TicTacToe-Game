@@ -8,5 +8,4 @@
 
 #### To do:
 1. Improve Computer AI/try Minimax
-2. Update variable names to fit Java conventions
-3. Develop a click-able GUI version
+2. Develop a click-able GUI version
